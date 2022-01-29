@@ -27,10 +27,8 @@ namespace CSGORUNCoefficientDetector
             driver.Manage().Window.Maximize();
             driver.Navigate().GoToUrl("https://csgorun.gg/");
             while (true)
-            {
                 if (driver.FindElements(By.XPath(".//*[@id='root']/div[1]/div[2]/div[1]/div[1]/div/div/div/div/div[1]")).Count > 0) break;
                 else { Thread.Sleep(1000); Console.Write("."); };
-            }
             IWebElement cfLabel = driver.FindElement(By.XPath(".//*[@id='root']/div[1]/div[2]/div[1]/div[1]/div/div/div/div/div[1]"));
             bool start = false;
             int nowCF = 0, cf = 100, cfCombo = 0, cfMiss = 0;
@@ -49,10 +47,8 @@ namespace CSGORUNCoefficientDetector
                 else
                 {
                     if (start)
-                    {
                         if (cf >= cfDetect) { File.AppendAllText(path, $"[{DateTime.Now.ToString("yy.MM.dd.HH:mm:ss")}] {cf / 100}.{cf % 100}cf {backs}$ {players}p {skins}s{(cfMiss > 0 ? $" || Miss - {cfMiss}" : (cfCombo > 0 ? $" || Combo - {cfCombo}" : ""))}" + "\n"); cfMiss = 0; cfCombo++; }
                         else { cfCombo = 0; cfMiss++; };
-                    }
                     start = false;
                 }
                 Thread.Sleep(10);
